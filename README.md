@@ -29,11 +29,25 @@
 ![整体流程](https://raw.githubusercontent.com/qiurunze123/imageall/master/zhangdangaokeyong1.png)
 
 
-###  以下所有内容都已完成，但是因内容多需逐渐整理上传！ 专题的部分也会尽快上传更新！ 立个flag 半年内吧争取全部更新完！各位稍安勿躁！ 
+###  以下所有内容都已完成，但是因内容多需逐渐整理上传！
 
 ###  [如要提交代码请先看--提交合并代码规范提交者的后面都会有署名方便大家问问题](/docs/code-criterion.md)
 
 | ID | Problem  | Article | 
 | --- | ---   | :--- |
-| 000 |如何解决卖超问题 | [解决思路](/docs/code-solve.md) |
-| 001 |如何对本项目进行jmeter压测 | [解决思路](/docs/jemter-solve.md) |
+| 000 |切面进行多数据源配置 | [解决思路](/docs/code-solve.md) |
+| 001 |数据库表设计思路 | [解决思路](/docs/code-solve.md) |
+| 002 |手动事务保证数据一致性 | [解决思路](/docs/code-solve.md) |
+| 003 |如何在程序断主从与恢复 | [解决思路](/docs/code-solve.md) |
+| 004 |定时任务配置 | [解决思路](/docs/code-solve.md) |
+| 005 |账单导入批次策略 | [解决思路](/docs/code-solve.md) |
+| 006 |存量策略 | [解决思路](/docs/code-solve.md) |
+| 007 |增量策略 | [解决思路](/docs/code-solve.md) |
+| 008 |数据库分表策略 | [解决思路](/docs/code-solve.md) |
+| 009 |数据一致性如何保证 | [解决思路](/docs/code-solve.md) |
+| 010 |数据如何进行补偿| [解决思路](/docs/code-solve.md) |
+| 011 |如何进行幂等性设计 | [解决思路](/docs/code-solve.md) |
+| 012 |多线程跑批如何保证数据一致性 | [解决思路](/docs/code-solve.md) |
+| 013 |如何保证数据抽取可靠性 | [解决思路](/docs/code-solve.md) |
+| 014 |导入批次如果失败怎么办 | [解决思路](/docs/code-solve.md) |
+| 015 |业务报警 | [解决思路](/docs/code-solve.md) |
