@@ -1,4 +1,4 @@
-![互联网数据安全高可用策略](https://raw.githubusercontent.com/qiurunze123/imageall/master/gaokeyongcelue.png)
+![互联网数据安全高可用策略](https://raw.githubusercontent.com/qiurunze123/imageall/master/anquangaokeyongcelue.png)
 
 > 邮箱 : [QiuRunZe_key@163.com](QiuRunZe_key@163.com)
 
