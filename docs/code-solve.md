@@ -33,3 +33,9 @@ task:
 ![整体流程](https://raw.githubusercontent.com/qiurunze123/imageall/master/gaokeyong3.png)
 
  
+ **2.手动事务保持数据一致性**
+ 
+ 因为从不同数据源捞数据，所以普通的事务是不管用的，因为我们是像同一个数据库存入数据，所以我们可以把查询和插入更新分开
+ 利用手动事把所有的插入操作放在一个事务里面，来保持数据的一致可靠性
+ 
+ 
