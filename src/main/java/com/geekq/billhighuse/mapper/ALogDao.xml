@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geekq.billhighuse.mapper.ALogDao" >
+  <resultMap id="BaseResultMap" type="com.geekq.billhighuse.entity.ALog" >
+    <id column="pointLogId" property="pointLogId" jdbcType="BIGINT" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="banlance" property="banlance" jdbcType="DECIMAL" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="operation_" property="operation" jdbcType="INTEGER" />
+    <result column="time_" property="time" jdbcType="TIMESTAMP" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="fromUser" property="fromUser" jdbcType="INTEGER" />
+    <result column="loan" property="loan" jdbcType="INTEGER" />
+    <result column="toUser" property="toUser" jdbcType="INTEGER" />
+    <result column="user_" property="user" jdbcType="INTEGER" />
+    <result column="operation_type" property="operationType" jdbcType="INTEGER" />
+    <result column="sub_point_id" property="subPointId" jdbcType="INTEGER" />
+    <result column="cust_text1" property="custText1" jdbcType="VARCHAR" />
+    <result column="cust_text2" property="custText2" jdbcType="VARCHAR" />
+    <result column="cust_int1" property="custInt1" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    pointLogId, amount, banlance, notes, operation_, time_, version, fromUser, loan, 
+    toUser, user_, operation_type, sub_point_id, cust_text1, cust_text2, cust_int1
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from point_log
+    where pointLogId = #{pointLogId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from point_log
+    where pointLogId = #{pointLogId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.geekq.billhighuse.entity.ALog" >
+    insert into point_log (pointLogId, amount, banlance, 
+      notes, operation_, time_, 
+      version, fromUser, loan, 
+      toUser, user_, operation_type, 
+      sub_point_id, cust_text1, cust_text2, 
+      cust_int1)
+    values (#{pointLogId,jdbcType=BIGINT}, #{amount,jdbcType=DECIMAL}, #{banlance,jdbcType=DECIMAL},
+      #{notes,jdbcType=VARCHAR}, #{operation,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER}, #{fromUser,jdbcType=INTEGER}, #{loan,jdbcType=INTEGER}, 
+      #{toUser,jdbcType=INTEGER}, #{user,jdbcType=INTEGER}, #{operationType,jdbcType=INTEGER}, 
+      #{subPointId,jdbcType=INTEGER}, #{custText1,jdbcType=VARCHAR}, #{custText2,jdbcType=VARCHAR}, 
+      #{custInt1,jdbcType=BIGINT})
+  </insert>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into point_log (
+        pointLogId,
+        amount,
+        banlance,
+        notes,
+        operation_,
+        time_,
+        version,
+        fromUser,
+        loan,
+        toUser,
+        user_,
+        operation_type,
+        sub_point_id,
+        cust_text1,
+        cust_text2,
+        cust_int1)
+        values
+        <foreach collection="list" item="obj" index="index" separator=",">
+            (
+            #{obj.pointLogId},
+            #{obj.amount},
+            #{obj.banlance},
+            #{obj.notes},
+            #{obj.operation},
+            #{obj.time},
+            #{obj.version},
+            #{obj.fromUser},
+            #{obj.loan},
+            #{obj.toUser},
+            #{obj.user},
+            #{obj.operationType},
+            #{obj.subPointId},
+            #{obj.custText1},
+            #{obj.custText2},
+            #{obj.custInt1}
+            )
+
+        </foreach>
+    </insert>
+
+
+    <insert id="insertSelective" parameterType="com.geekq.billhighuse.entity.ALog" >
+    insert into point_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pointLogId != null" >
+        pointLogId,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="banlance != null" >
+        banlance,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="operation != null" >
+        operation_,
+      </if>
+      <if test="time != null" >
+        time_,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="fromUser != null" >
+        fromUser,
+      </if>
+      <if test="loan != null" >
+        loan,
+      </if>
+      <if test="toUser != null" >
+        toUser,
+      </if>
+      <if test="user != null" >
+        user_,
+      </if>
+      <if test="operationType != null" >
+        operation_type,
+      </if>
+      <if test="subPointId != null" >
+        sub_point_id,
+      </if>
+      <if test="custText1 != null" >
+        cust_text1,
+      </if>
+      <if test="custText2 != null" >
+        cust_text2,
+      </if>
+      <if test="custInt1 != null" >
+        cust_int1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pointLogId != null" >
+        #{pointLogId,jdbcType=BIGINT},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="banlance != null" >
+        #{banlance,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fromUser != null" >
+        #{fromUser,jdbcType=INTEGER},
+      </if>
+      <if test="loan != null" >
+        #{loan,jdbcType=INTEGER},
+      </if>
+      <if test="toUser != null" >
+        #{toUser,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=INTEGER},
+      </if>
+      <if test="operationType != null" >
+        #{operationType,jdbcType=INTEGER},
+      </if>
+      <if test="subPointId != null" >
+        #{subPointId,jdbcType=INTEGER},
+      </if>
+      <if test="custText1 != null" >
+        #{custText1,jdbcType=VARCHAR},
+      </if>
+      <if test="custText2 != null" >
+        #{custText2,jdbcType=VARCHAR},
+      </if>
+      <if test="custInt1 != null" >
+        #{custInt1,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.geekq.billhighuse.entity.ALog" >
+    update point_log
+    <set >
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="banlance != null" >
+        banlance = #{banlance,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null" >
+        operation_ = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="time != null" >
+        time_ = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="fromUser != null" >
+        fromUser = #{fromUser,jdbcType=INTEGER},
+      </if>
+      <if test="loan != null" >
+        loan = #{loan,jdbcType=INTEGER},
+      </if>
+      <if test="toUser != null" >
+        toUser = #{toUser,jdbcType=INTEGER},
+      </if>
+      <if test="user != null" >
+        user_ = #{user,jdbcType=INTEGER},
+      </if>
+      <if test="operationType != null" >
+        operation_type = #{operationType,jdbcType=INTEGER},
+      </if>
+      <if test="subPointId != null" >
+        sub_point_id = #{subPointId,jdbcType=INTEGER},
+      </if>
+      <if test="custText1 != null" >
+        cust_text1 = #{custText1,jdbcType=VARCHAR},
+      </if>
+      <if test="custText2 != null" >
+        cust_text2 = #{custText2,jdbcType=VARCHAR},
+      </if>
+      <if test="custInt1 != null" >
+        cust_int1 = #{custInt1,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pointLogId = #{pointLogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.geekq.billhighuse.entity.ALog" >
+    update point_log
+    set amount = #{amount,jdbcType=DECIMAL},
+      banlance = #{banlance,jdbcType=DECIMAL},
+      notes = #{notes,jdbcType=VARCHAR},
+      operation_ = #{operation,jdbcType=INTEGER},
+      time_ = #{time,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER},
+      fromUser = #{fromUser,jdbcType=INTEGER},
+      loan = #{loan,jdbcType=INTEGER},
+      toUser = #{toUser,jdbcType=INTEGER},
+      user_ = #{user,jdbcType=INTEGER},
+      operation_type = #{operationType,jdbcType=INTEGER},
+      sub_point_id = #{subPointId,jdbcType=INTEGER},
+      cust_text1 = #{custText1,jdbcType=VARCHAR},
+      cust_text2 = #{custText2,jdbcType=VARCHAR},
+      cust_int1 = #{custInt1,jdbcType=BIGINT}
+    where pointLogId = #{pointLogId,jdbcType=BIGINT}
+  </update>
+
+  <select id="queryAllByOffset" resultMap="BaseResultMap">
+    SELECT * from point_log
+    WHERE pointLogId > #{id}
+    ORDER by pointLogId ASC
+    limit #{limit} offset #{offset}
+  </select>
+
+  <select id="getCount" resultType="java.lang.Long">
+    SELECT COUNT(*)  FROM point_log
+  </select>
+
+  <select id="getOffsetCount" resultType="java.lang.Integer">
+    SELECT count(*) from point_log
+    where pointLogId > #{id}
+  </select>
+  
+  <select id="getLateRecord" resultMap="BaseResultMap">
+    select * from point_log ORDER BY pointLogId DESC limit 1;
+  </select>
+
+
+  <select id="getMaxPointLogId"  resultType="java.lang.Long" >
+    select max(pointlogid) from point_log
+  </select>
+
+  <select id="queryPointLogByRange" resultMap="BaseResultMap">
+    SELECT * from point_log
+    WHERE pointLogId between #{rangeStart,jdbcType=BIGINT} and #{rangeEnd,jdbcType=BIGINT}
+  </select>
+</mapper>

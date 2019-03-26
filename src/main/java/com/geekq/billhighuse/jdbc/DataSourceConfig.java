@@ -39,6 +39,12 @@ public class DataSourceConfig {
         return DataSourceBuilder.create().type(datasourceType).build();
     }
 
+
+    @Bean(name = "datasource3")
+    @ConfigurationProperties(prefix = "spring.datasource.db3")
+    public DataSource dataSource3() {
+        return DataSourceBuilder.create().type(datasourceType).build();
+    }
     /**
      * 动态数据源: 通过AOP在不同数据源之间动态切换
      *
@@ -55,6 +61,7 @@ public class DataSourceConfig {
         Map<Object, Object> dsMap = new HashMap();
         dsMap.put("datasource1", dataSource1());
         dsMap.put("datasource2", dataSource2());
+        dsMap.put("datasource3", dataSource3());
 
         dynamicDataSource.setTargetDataSources(dsMap);
         return dynamicDataSource;

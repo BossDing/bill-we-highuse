@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geekq.billhighuse.mapper.ImportAbillLogDao" >
+  <resultMap id="BaseResultMap" type="com.geekq.billhighuse.entity.ImportALog" >
+    <id column="day" property="day" jdbcType="VARCHAR" />
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="time_" property="time" jdbcType="TIMESTAMP" />
+    <result column="operation_" property="operation" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    day, userId, amount, time_, operation_, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.geekq.billhighuse.entity.ImportALogKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_point_log
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.geekq.billhighuse.entity.ImportALogKey" >
+    delete from import_point_log
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.geekq.billhighuse.entity.ImportALog" >
+    insert into import_point_log (day, userId, amount, 
+      time_, operation_, create_time
+      )
+    values (#{day,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
+      #{time,jdbcType=TIMESTAMP}, #{operation,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.geekq.billhighuse.entity.ImportALog" >
+    insert into import_point_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="time != null" >
+        time_,
+      </if>
+      <if test="operation != null" >
+        operation_,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="day != null" >
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.geekq.billhighuse.entity.ImportALog" >
+    update import_point_log
+    <set >
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="time != null" >
+        time_ = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operation != null" >
+        operation_ = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.geekq.billhighuse.entity.ImportALog" >
+    update import_point_log
+    set amount = #{amount,jdbcType=DECIMAL},
+      time_ = #{time,jdbcType=TIMESTAMP},
+      operation_ = #{operation,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT  INTO ${table} (day, userId, amount,
+    time_, operation_, create_time
+    ) VALUES
+    <foreach collection="list" item="item" index="index"
+             separator=",">
+      (#{day}, #{item.user,jdbcType=INTEGER}, #{item.amount,jdbcType=DECIMAL},
+      #{item.time,jdbcType=TIMESTAMP}, #{item.operation,jdbcType=INTEGER}, #{createTime}
+      )
+    </foreach>
+  </insert>
+
+  <select id="queryDaily" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from ${table}
+    where
+    <![CDATA[
+      time_ <= #{endDate} and time_ > #{beginDate}
+    ]]>
+    and operation_ in (1, 33)
+    <if test="userId != null" >
+      and userId = #{userId,jdbcType=INTEGER}
+    </if>
+    order by userId desc limit #{startIndex,jdbcType=INTEGER},#{offset,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryDailyTotal" resultType="int" >
+    select
+    count(1)
+    from ${table}
+    where
+    <![CDATA[
+      time_ <= #{endDate} and time_ > #{beginDate}
+    ]]>
+    and operation_ in (1, 33)
+    <if test="userId != null" >
+      and userId = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="selectByDayAndUserIdRange" resultMap="BaseResultMap">
+    select day,userId ,sum(amount) amount ,operation_
+    from import_point_log_${monthString}
+    where day = #{day,jdbcType=VARCHAR}
+    and operation_ in (1, 33)
+    <![CDATA[
+      and userId > #{rangeStart} and userId <= #{rangeEnd}
+    ]]>
+    group by userId
+  </select>
+  <select id="selectByMonthAndUserIdRange" resultMap="BaseResultMap">
+    select day,userId ,sum(amount) amount ,operation_
+    from import_point_log_${monthString}
+    where day > #{startDay,jdbcType=VARCHAR}
+    and operation_ in (1, 33)
+    <![CDATA[
+      and userId > #{rangeStart} and userId <= #{rangeEnd}
+    ]]>
+    group by userId
+  </select>
+
+  <delete id="deleteByDay">
+    delete from ${table}
+    where day = #{day,jdbcType=VARCHAR}
+  </delete>
+</mapper>

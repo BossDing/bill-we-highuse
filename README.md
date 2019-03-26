@@ -29,7 +29,7 @@
 ![整体流程](https://raw.githubusercontent.com/qiurunze123/imageall/master/zhangdangaokeyong1.png)
 
 
-###  以下所有内容都已完成，但是因内容多需逐渐整理上传！
+###  内容复杂慢慢整理吧！
 
 ###  [如要提交代码请先看--提交合并代码规范提交者的后面都会有署名方便大家问问题](/docs/code-criterion.md)
 

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geekq.billhighuse.mapper.ImportBStatDao" >
+  <resultMap id="BaseResultMap" type="com.geekq.billhighuse.entity.ImportBStat" >
+    <id column="day" property="day" jdbcType="VARCHAR" />
+    <id column="userId" property="userid" jdbcType="INTEGER" />
+    <result column="current_plan_count" property="currentPlanCount" jdbcType="INTEGER" />
+    <result column="current_plan_amount" property="currentPlanAmount" jdbcType="DECIMAL" />
+    <result column="sum_plan_amount" property="sumPlanAmount" jdbcType="DECIMAL" />
+    <result column="assets" property="assets" jdbcType="DECIMAL" />
+    <result column="sub_point_type" property="subPointType" jdbcType="VARCHAR" />
+    <result column="sum_plan_interest" property="sumPlanInterest" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    day, userId, current_plan_count, current_plan_amount, sum_plan_amount, assets, sub_point_type, 
+    sum_plan_interest
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.geekq.billhighuse.entity.ImportBStatKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from import_finance_plan_user_stat
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.geekq.billhighuse.entity.ImportBStatKey" >
+    delete from import_finance_plan_user_stat
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.geekq.billhighuse.entity.ImportBStat" >
+    insert into import_finance_plan_user_stat (day, userId, current_plan_count, 
+      current_plan_amount, sum_plan_amount, assets, 
+      sub_point_type, sum_plan_interest)
+    values (#{day,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{currentPlanCount,jdbcType=INTEGER}, 
+      #{currentPlanAmount,jdbcType=DECIMAL}, #{sumPlanAmount,jdbcType=DECIMAL}, #{assets,jdbcType=DECIMAL}, 
+      #{subPointType,jdbcType=VARCHAR}, #{sumPlanInterest,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.geekq.billhighuse.entity.ImportBStat" >
+    insert into import_finance_plan_user_stat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="currentPlanCount != null" >
+        current_plan_count,
+      </if>
+      <if test="currentPlanAmount != null" >
+        current_plan_amount,
+      </if>
+      <if test="sumPlanAmount != null" >
+        sum_plan_amount,
+      </if>
+      <if test="assets != null" >
+        assets,
+      </if>
+      <if test="subPointType != null" >
+        sub_point_type,
+      </if>
+      <if test="sumPlanInterest != null" >
+        sum_plan_interest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="day != null" >
+        #{day,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="currentPlanCount != null" >
+        #{currentPlanCount,jdbcType=INTEGER},
+      </if>
+      <if test="currentPlanAmount != null" >
+        #{currentPlanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="sumPlanAmount != null" >
+        #{sumPlanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="assets != null" >
+        #{assets,jdbcType=DECIMAL},
+      </if>
+      <if test="subPointType != null" >
+        #{subPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="sumPlanInterest != null" >
+        #{sumPlanInterest,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.geekq.billhighuse.entity.ImportBStat" >
+    update import_finance_plan_user_stat
+    <set >
+      <if test="currentPlanCount != null" >
+        current_plan_count = #{currentPlanCount,jdbcType=INTEGER},
+      </if>
+      <if test="currentPlanAmount != null" >
+        current_plan_amount = #{currentPlanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="sumPlanAmount != null" >
+        sum_plan_amount = #{sumPlanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="assets != null" >
+        assets = #{assets,jdbcType=DECIMAL},
+      </if>
+      <if test="subPointType != null" >
+        sub_point_type = #{subPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="sumPlanInterest != null" >
+        sum_plan_interest = #{sumPlanInterest,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.geekq.billhighuse.entity.ImportBStat" >
+    update import_finance_plan_user_stat
+    set current_plan_count = #{currentPlanCount,jdbcType=INTEGER},
+      current_plan_amount = #{currentPlanAmount,jdbcType=DECIMAL},
+      sum_plan_amount = #{sumPlanAmount,jdbcType=DECIMAL},
+      assets = #{assets,jdbcType=DECIMAL},
+      sub_point_type = #{subPointType,jdbcType=VARCHAR},
+      sum_plan_interest = #{sumPlanInterest,jdbcType=DECIMAL}
+    where day = #{day,jdbcType=VARCHAR}
+      and userId = #{userid,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT  INTO ${table} (day, userId, current_plan_count,
+      current_plan_amount, sum_plan_amount, assets,
+      sub_point_type, sum_plan_interest) VALUES
+    <foreach collection="list" item="item" index="index"
+             separator=",">
+      (#{day}, #{item.userId,jdbcType=INTEGER}, #{item.currentPlanCount,jdbcType=INTEGER},
+      #{item.currentPlanAmount,jdbcType=DECIMAL}, #{item.sumPlanAmount,jdbcType=DECIMAL}, #{item.assets,jdbcType=DECIMAL},
+      #{item.subPointType,jdbcType=VARCHAR}, #{item.sumPlanInterest,jdbcType=DECIMAL})
+    </foreach>
+  </insert>
+
+  <select id="queryDaily" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from ${table}
+    where day = #{day,jdbcType=VARCHAR}
+    <if test="subPointType != null" >
+      and sub_point_type = #{subPointType,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+      and userId = #{userId,jdbcType=INTEGER}
+    </if>
+    order by userId desc limit #{startIndex,jdbcType=INTEGER},#{offset,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryDailyTotal" resultType="int" >
+    select
+    count(1)
+    from ${table}
+    where day = #{day,jdbcType=VARCHAR}
+    <if test="subPointType != null" >
+      and sub_point_type = #{subPointType,jdbcType=VARCHAR}
+    </if>
+    <if test="userId != null" >
+      and userId = #{userId,jdbcType=INTEGER}
+    </if>
+  </select>
+    <select id="selectByDayAndUserIdRange" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from import_finance_plan_user_stat_${monthString}
+      where day = #{day}
+      <![CDATA[
+        and userId > #{rangeStart} and userId <= #{rangeEnd}
+      ]]>
+    </select>
+
+    <delete id="deleteByDay">
+    delete from ${table}
+    where day = #{day,jdbcType=VARCHAR}
+  </delete>
+
+</mapper>
